@@ -1,0 +1,44 @@
+﻿@model Domain.Superhero
+
+@{
+    ViewBag.Title = "Удаление";
+}
+
+<h3>Вы уверены, что хотите удалить этого супергероя?</h3>
+<div>
+    <h1>@Html.DisplayFor(model => model.Name)</h1>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+    </dl>
+
+    <div class="form-group">
+        @if (Model.ImageData == null)
+            {
+            <img class="img-thumbnail" width="240" height="240" src="~/Content/Images/default_superhero3.png" />
+        }
+        else
+        {
+            <img class="img-thumbnail" width="240" height="240" src="@Url.Action("GetImage", "Superhero", new {superheroId = Model.Id })" />
+        }
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <div class="btn btn-default">
+                @Html.ActionLink("К списку супергероев", "Index")                
+            </div>
+            
+            <input type="submit" value="Удалить" class="btn btn-default" />
+        </div>
+    }
+</div>

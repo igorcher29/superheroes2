@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Domain.Superhero>
+
+@{
+    ViewBag.Title = "Супергерои";
+}
+
+<h2>Список супергероев</h2>
+
+<div class="btn btn-success">
+    @Html.ActionLink("Создать нового", "Create")
+</div>
+<br />
+<table class="table">
+    <tr>
+        <th>
+            <p></p>
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <div class="form-group">
+                    @if (item.ImageData == null)
+                {
+                        <img class="img-thumbnail" width="128" height="128" src="~/Content/Images/default_superhero3.png" />
+                    }
+                    else
+                    {
+                        <img class="img-thumbnail" width="128" height="128" src="@Url.Action("GetImage", "Superhero", new {superheroId = item.Id })" />
+                    }
+                </div>
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+
+            <td>
+                <div class="btn btn-default">
+                    @Html.ActionLink("Редактировать", "Edit", new { id = item.Id })
+                </div>
+                
+                <div class="btn btn-default">
+                    @Html.ActionLink("Просмотр", "Details", new { id = item.Id })
+                </div>
+                
+                <div class="btn btn-danger">
+                    @Html.ActionLink("Удалить", "Delete", new { id = item.Id })
+                </div>
+                
+</td>
+        </tr>
+    }
+
+</table>
+

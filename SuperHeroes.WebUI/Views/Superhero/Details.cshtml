@@ -1,0 +1,82 @@
+﻿@model Domain.Superhero
+
+@{
+    ViewBag.Title = "Супергерой";
+}
+
+<h1>
+    @Html.DisplayFor(model => model.Name)
+</h1>
+
+<div class="btn btn-default" >
+    @Html.ActionLink("К списку супергероев", "Index")
+</div>
+
+<div class="btn btn-default">
+    @Html.RouteLink("Редактировать", new { controller = "Superhero", action = "Edit", id = Model.Id })
+</div>
+
+<hr />
+
+<p>
+    @if (Model.ImageData == null)
+    {
+        <img class="figure" width="320" height="320" src="~/Content/Images/default_superhero3.png" />
+    }
+    else
+    {
+        <img src="@Url.Action("GetImage", "Superhero", new {superheroId = Model.Id })" class="figure-float-left" />
+    }
+</p>
+
+<p>@Html.DisplayFor(model => model.Description)</p>
+
+<hr class="clear-layer" />
+<br />
+<h2>Список суперспособностей:</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            <p></p>
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Superpowers.First().Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Superpowers.First().Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Superpowers.First().Rating)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Superpowers)
+    {
+        <tr>
+            <td>
+                <div class="form-group">
+                    @if (item.ImageData == null)
+                {
+                        <img class="img-thumbnail" width="64" height="64" src="~/Content/Images/default_superpower2.png" />
+                    }
+                    else
+                    {
+                        <img class="img-thumbnail" width="64" height="64" src="@Url.Action("GetImage", "Superpower", new {superpowerId = item.Id })" />
+                    }
+                </div>
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+        </tr>
+    }
+</table>
